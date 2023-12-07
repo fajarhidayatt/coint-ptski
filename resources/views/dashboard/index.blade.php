@@ -13,8 +13,8 @@
             <div class="card-body">
                 <div class="row no-gutters align-items-center">
                     <div class="col mr-2">
-                        <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">Barang</div>
-                        <div class="h5 mb-0 font-weight-bold text-gray-800">$40,000</div>
+                        <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">Total Barang</div>
+                        <div class="h5 mb-0 font-weight-bold text-gray-800">{{ $barang }}</div>
                     </div>
                     <div class="col-auto">
                         <i class="fas fa-box fa-2x text-gray-300"></i>
@@ -29,8 +29,8 @@
             <div class="card-body">
                 <div class="row no-gutters align-items-center">
                     <div class="col mr-2">
-                        <div class="text-xs font-weight-bold text-success text-uppercase mb-1">Suplier</div>
-                        <div class="h5 mb-0 font-weight-bold text-gray-800">$215,000</div>
+                        <div class="text-xs font-weight-bold text-success text-uppercase mb-1">Total Suplier</div>
+                        <div class="h5 mb-0 font-weight-bold text-gray-800">{{ $suplier }}</div>
                     </div>
                     <div class="col-auto">
                         <i class="fas fa-users fa-2x text-gray-300"></i>
@@ -45,10 +45,10 @@
             <div class="card-body">
                 <div class="row no-gutters align-items-center">
                     <div class="col mr-2">
-                        <div class="text-xs font-weight-bold text-info text-uppercase mb-1">Pembelian</div>
+                        <div class="text-xs font-weight-bold text-info text-uppercase mb-1">Total Pembelian</div>
                         <div class="row no-gutters align-items-center">
                             <div class="col-auto">
-                                <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800">50%</div>
+                                <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800">{{ $pembelian }}</div>
                             </div>
                         </div>
                     </div>
@@ -65,8 +65,8 @@
             <div class="card-body">
                 <div class="row no-gutters align-items-center">
                     <div class="col mr-2">
-                        <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">Stock</div>
-                        <div class="h5 mb-0 font-weight-bold text-gray-800">18</div>
+                        <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">Total Stock</div>
+                        <div class="h5 mb-0 font-weight-bold text-gray-800">{{ $stock }}</div>
                     </div>
                     <div class="col-auto">
                         <i class="fas fa-layer-group fa-2x text-gray-300"></i>
