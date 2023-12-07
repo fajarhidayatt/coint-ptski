@@ -28,13 +28,6 @@
                             <td>{{ $item->tgl_beli }}</td>
                             <td class="d-flex">
                                 <a href="{{ route('pembelian.show', $item->id) }}" class="btn btn-warning">Detail</a>
-                                
-                                {{-- <a href="{{ route('pembelian.edit', $item->id) }}" class="btn btn-warning">Edit</a> --}}
-                                {{-- <form action="{{ route('pembelian.destroy', $item->id) }}" method="POST">
-                                    @csrf
-                                    @method('DELETE')
-                                    <button class="btn btn-danger">Hapus</button>
-                                </form> --}}
                             </td>
                         </tr>
                     @empty
