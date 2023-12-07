@@ -16,7 +16,6 @@ class SuplierController extends Controller
         $suplier = Suplier::all();
 
         return view('dashboard.suplier.index', [
-            'title' => 'Daftar Suplier',
             'suplier' => $suplier
         ]);
     }
@@ -26,19 +25,16 @@ class SuplierController extends Controller
      */
     public function create()
     {
-        /// generate kode_brg
+        /// ambil data suplier terakhir
         $suplier_terakhir = Suplier::all()->last();
         $kode_spl = '';
 
         if($suplier_terakhir) {
-            /// ambil kode_spl terakhir
-            $kode_terkahir = $suplier_terakhir->kode_spl;
-
-            /// ambil no_urut, memisahkan prefix (SPL) dengan nomor urut (001)
-            $ambil_no_urut = intval(substr($kode_terkahir, 3));
+            /// ambil id suplier terakhir
+            $urut_terkahir = $suplier_terakhir->id;
 
             /// dapatkan no_urut sekarang
-            $no_urut_sekarang = str_pad($ambil_no_urut + 1, 3, '0', STR_PAD_LEFT);
+            $no_urut_sekarang = str_pad($urut_terkahir + 1, 3, '0', STR_PAD_LEFT);
 
             /// dapatkan kode suplier sekarang
             $kode_spl = 'SPL' . $no_urut_sekarang;
@@ -47,7 +43,6 @@ class SuplierController extends Controller
         }
 
         return view('dashboard.suplier.create', [
-            'title' => 'Buat Suplier',
             'kode_spl' => $kode_spl
         ]);
     }
@@ -57,10 +52,10 @@ class SuplierController extends Controller
      */
     public function store(Request $request)
     {
-        /// ambil semua data requst
+        /// ambil semua data form
         $data = $request->all();
 
-        /// tambah data suplier
+        /// simpan data ke database
         Suplier::create($data);
 
         return redirect()->route('suplier.index');
@@ -83,7 +78,6 @@ class SuplierController extends Controller
         $suplier = Suplier::find($id);
 
         return view('dashboard.suplier.edit', [
-            'title' => 'Edit Suplier',
             'suplier' => $suplier
         ]);
     }
@@ -93,7 +87,7 @@ class SuplierController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        /// ambil semua data request
+        /// ambil semua data form
         $data = $request->all();
 
         /// ambil data suplier berdasarkan id

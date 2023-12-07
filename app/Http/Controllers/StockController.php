@@ -8,6 +8,7 @@ class StockController extends Controller
 {
     public function index()
     {
+        /// ambil semua data stock
         $stock = Stock::all();
 
         return view('dashboard.stock.index', [

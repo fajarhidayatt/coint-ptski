@@ -18,6 +18,7 @@ class PembelianController extends Controller
      */
     public function index()
     {
+        /// ambil semua data hbeli
         $pembelian = Hbeli::all();
 
         return view('dashboard.pembelian.index', [
@@ -30,19 +31,25 @@ class PembelianController extends Controller
      */
     public function create()
     {
-        /// ambil data tbl_suplier dan tbl_barang
+        /// ambil data suplier dan barang
         $suplier = Suplier::all();
         $barang = Barang::all();
 
-        /// generate no_transaksi
+        /// ambil data pembelian terkahir
         $transaksi_terakhir = Hbeli::all()->last();
 
+        /// ambil tahun dan bulan sekarang
         $tahun_bulan = Carbon::now()->format('Ym');
         $no_transaksi = '';
 
         if($transaksi_terakhir) {
+            /// ambil id pembelian terakhir
             $urut_terkahir = $transaksi_terakhir->id;
+
+            /// dapatkan no urut sekarang
             $urut_sekarang = str_pad($urut_terkahir + 1, 3, '0', STR_PAD_LEFT);
+
+            /// dapatkan no_transaksi
             $no_transaksi = 'B' . $tahun_bulan . $urut_sekarang;
         } else {
             $no_transaksi = 'B' . $tahun_bulan . '001';
@@ -79,6 +86,7 @@ class PembelianController extends Controller
         ]);
 
         /// cek stock sebelumnya
+        /// ambil data stock berdasarkan kode barang
         $stock = Stock::where('kode_brg', $request->kode_brg)->first();
 
         /// jika stock barang sebelumnya sudah ada, maka tambahkan, jika belum maka buat
@@ -108,7 +116,10 @@ class PembelianController extends Controller
      */
     public function show(string $id)
     {
+        /// ambil data pembelian berdasarkan id
         $hbeli = Hbeli::find($id);
+
+        /// ambil data detail pembelian berdasarkan nomor transaksi
         $dbeli = Dbeli::where('no_transaksi', $hbeli->no_transaksi)->first();
 
         return view('dashboard.pembelian.show', [
@@ -138,24 +149,6 @@ class PembelianController extends Controller
      */
     public function destroy(string $id)
     {
-        // /// ambil data di tbl_hbeli
-        // $hbeli = Hbeli::find($id);
-
-        // /// ambil data di tbl_dbeli
-        // $dbeli = Dbeli::where('no_transaksi', $hbeli->no_transaksi)->first();
-
-        // /// ambil data di tbl_hutang
-        // $hutang = Hutang::where('no_transaksi', $hbeli->no_transaksi)->first();
-        
-        // /// update stock sesuai transaksi yang dihapus
-        // $stock = Stock::where('kode_brg', $dbeli->kode_brg)->first();
-        // $stock->qty_beli -= $dbeli->qty;
-        // $stock->save();
-
-        // $hbeli->delete();
-        // $dbeli->delete();
-        // $hutang->delete();
-
-        // return redirect()->route('pembelian.index');
+        //
     }
 }

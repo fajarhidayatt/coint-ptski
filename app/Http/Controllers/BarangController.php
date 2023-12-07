@@ -16,7 +16,6 @@ class BarangController extends Controller
         $barang = Barang::all();
 
         return view('dashboard.barang.index', [
-            'title' => 'Daftar Barang',
             'barang' => $barang
         ]);
     }
@@ -26,19 +25,16 @@ class BarangController extends Controller
      */
     public function create()
     {
-        /// generate kode_brg
+        /// ambil data barang terakhir
         $barang_terakhir = Barang::all()->last();
         $kode_brg = '';
 
         if($barang_terakhir) {
-            /// ambil kode_brg terakhir
-            $kode_terkahir = $barang_terakhir->kode_brg;
-
-            /// ambil no_urut, memisahkan prefix (BRG) dengan nomor urut (001)
-            $ambil_no_urut = intval(substr($kode_terkahir, 3));
+            /// ambil id barang terakhir
+            $urut_terkahir = $barang_terakhir->id;
 
             /// dapatkan no_urut sekarang
-            $no_urut_sekarang = str_pad($ambil_no_urut + 1, 3, '0', STR_PAD_LEFT);
+            $no_urut_sekarang = str_pad($urut_terkahir + 1, 3, '0', STR_PAD_LEFT);
 
             /// dapatkan kode barang sekarang
             $kode_brg = 'BRG' . $no_urut_sekarang;
@@ -48,7 +44,6 @@ class BarangController extends Controller
 
         
         return view('dashboard.barang.create', [
-            'title' => 'Buat Barang',
             'kode_brg' => $kode_brg
         ]);
     }
@@ -58,7 +53,7 @@ class BarangController extends Controller
      */
     public function store(Request $request)
     {
-        /// ambil data request
+        /// ambil data form
         $data = $request->all();
 
         /// simpan data ke database
@@ -80,7 +75,7 @@ class BarangController extends Controller
      */
     public function edit(string $id)
     {
-        /// ambil barang berdasarkan id
+        /// ambil data barang berdasarkan id
         $barang = Barang::find($id);
 
         return view('dashboard.barang.edit', [
@@ -93,13 +88,13 @@ class BarangController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        /// ambil semua data requst
+        /// ambil semua data form
         $data = $request->all();
 
-        /// ambil barang berdasarkan id
+        /// ambil data barang berdasarkan id
         $barang = Barang::find($id);
 
-        /// update barang
+        /// update data barang
         $barang->update($data);
 
         return redirect()->route('barang.index');
@@ -110,10 +105,10 @@ class BarangController extends Controller
      */
     public function destroy(string $id)
     {
-        /// ambil barang berdasarkan id
+        /// ambil data barang berdasarkan id
         $barang = Barang::find($id);
 
-        /// hapus barang
+        /// hapus data barang
         $barang->delete();
 
         return redirect()->route('barang.index');
